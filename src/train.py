@@ -10,8 +10,13 @@ from sklearn.linear_model import ElasticNet
 from urllib.parse import urlparse
 import mlflow
 import mlflow.sklearn
+from dotenv import load_dotenv
 
 import logging
+
+load_dotenv()
+
+os.environ['MLFLOW_TRACKING_URI'] = os.getenv('MLFLOW_TRACKING_URI')
 
 logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger(__name__)
@@ -74,7 +79,7 @@ if __name__ == "__main__":
         
 
         # For remote server only
-        remote_server_uri = "http://ec2-3-88-12-55.compute-1.amazonaws.com:5000/"
+        remote_server_uri = os.getenv('MLFLOW_TRACKING_URI')
         mlflow.set_tracking_uri(remote_server_uri)
 
 
